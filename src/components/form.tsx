@@ -3,33 +3,18 @@ import { FastField, Field, Formik } from "formik";
 import { initialValues, searchForm, validationSchema } from "../_constants";
 import styles from "./form.module.css";
 import { FormField } from "../_types";
-import { getOpenWeatherService } from "./api";
-import axios from "axios";
-import { getLocalStorage, setLocalStorage } from "../appData";
-import moment from "moment";
 
 export default function Form({
   setWeather,
-  setHistoryList
+  setHistoryList,
+  handleSubmit,
+  handleClear,
 }: {
   setWeather: (data: any) => void;
-  setHistoryList: (data: any) => void
+  setHistoryList: (data: any) => void;
+  handleSubmit: (values: FormField) => void;
+  handleClear: () => void;
 }) {
-  async function fetchWeather(values: FormField) {
-    axios
-      .get(getOpenWeatherService(values.city, values.country))
-      .then((response: { data: any }) => {
-        setWeather(response.data);
-      })
-      .catch((error: any) => console.error(error));
-  }
-
-  async function handleSubmit(values: FormField) {
-    const currentTime = moment().format("YYYY-MM-DD h:mm:ss a");
-    setHistoryList((prevState: any) => [...prevState, { ...values, date: currentTime }])
-    fetchWeather(values);
-  }
-
   return (
     <Formik
       initialValues={initialValues}
@@ -44,6 +29,7 @@ export default function Form({
         handleBlur,
         handleSubmit,
         isSubmitting,
+        resetForm,
       }) => (
         <form onSubmit={handleSubmit}>
           <label>
@@ -57,7 +43,15 @@ export default function Form({
           </label>
           <p>{errors.country && touched.country && errors.country}</p>
           <button type="submit">Search</button>
-          <button type="button">Clear</button>
+          <button
+            type="button"
+            onClick={() => {
+              resetForm();
+              handleClear();
+            }}
+          >
+            Clear
+          </button>
         </form>
       )}
     </Formik>

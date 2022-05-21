@@ -12,11 +12,17 @@ export default function Preview({ queryResult }: { queryResult: any }) {
         {queryResult?.name},{queryResult?.sys?.country}
       </p>
       <h2>{queryResult?.weather[0]?.main}</h2>
-      <p>Description: {queryResult.weather.length > 0 && queryResult?.weather[0]?.description || "-"}</p>
       <p>
-        Temperature: {queryResult?.main?.temp_min} - {queryResult?.main?.temp_max || '-'}
+        Description:{" "}
+        {(queryResult.weather.length > 0 &&
+          queryResult?.weather[0]?.description) ||
+          "-"}
       </p>
-      <p>Humidity: {queryResult?.main?.humidity}</p>
+      <p>
+        Temperature: {queryResult?.main?.temp_min}°C -{" "}
+        {queryResult?.main?.temp_max || "-"}°C
+      </p>
+      <p>Humidity: {queryResult?.main?.humidity}%</p>
       <p>Time: {currentTime}</p>
     </div>
   );

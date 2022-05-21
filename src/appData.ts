@@ -1,8 +1,7 @@
 export const isBrowser = typeof window !== "undefined";
 
 export function getLocalStorage(key: string): any {
-  const storageParsed =
-    isBrowser && window.localStorage.getItem(key);
+  const storageParsed = isBrowser && window.localStorage.getItem(key);
   return storageParsed;
 }
 
