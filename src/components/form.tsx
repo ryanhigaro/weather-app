@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { FastField, Field, Formik } from "formik";
-import { initialValues, searchForm, validationSchema } from "../_constants";
+import { validationSchema } from "../_constants";
 import styles from "./form.module.css";
 import { FormField } from "../_types";
 
 export default function Form({
+  initialValues,
   setWeather,
   setHistoryList,
   handleSubmit,
   handleClear,
 }: {
+  initialValues: FormField,
   setWeather: (data: any) => void;
   setHistoryList: (data: any) => void;
   handleSubmit: (values: FormField) => void;
@@ -20,6 +22,7 @@ export default function Form({
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values) => handleSubmit(values)}
+      enableReinitialize
     >
       {({
         values,

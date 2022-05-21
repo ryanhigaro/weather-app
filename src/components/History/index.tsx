@@ -6,9 +6,13 @@ import styles from "./index.module.css";
 export default function History({
   historyList,
   formValue,
+  handleDelete,
+  handleSearch,
 }: {
   historyList: any;
   formValue: FormField;
+  handleDelete: (index: any) => void;
+  handleSearch: (values: FormField) => void;
 }) {
   const [filteredList, setFilteredList] = useState<any>([]);
 
@@ -35,8 +39,14 @@ export default function History({
             <p>
               {index + 1}. {data?.city}, {data?.country} {data?.date}
             </p>
-            <button>Search</button>
-            <button>delete</button>
+            <button
+              onClick={() =>
+                handleSearch({ city: data?.city, country: data?.country })
+              }
+            >
+              Search
+            </button>
+            <button onClick={() => handleDelete(index)}>delete</button>
           </>
         ))}
     </div>

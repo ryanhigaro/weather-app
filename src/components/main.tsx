@@ -10,10 +10,9 @@ import axios from "axios";
 import { initialValues } from "../_constants";
 
 export default function WeatherPage(): ReactElement {
-  const [weather, setWeather] = useState();
+  const [weather, setWeather] = useState(null);
   const [historyList, setHistoryList] = useState<any>([]);
   const [formValue, setFormValue] = useState<FormField>(initialValues);
-
   async function fetchWeather(values: FormField) {
     axios
       .get(getOpenWeatherService(values.city, values.country))
@@ -38,8 +37,19 @@ export default function WeatherPage(): ReactElement {
     ]);
   }
 
+  function handleSearch(values: FormField) {
+    handleSubmit(values)
+  }
+
   function handleClear() {
     setFormValue(initialValues);
+    setWeather(null)
+  }
+
+  function handleDelete(index: any) {
+    const temp = [...historyList];
+    temp.splice(index, 1);
+    setHistoryList(temp);
   }
 
   return (
@@ -47,13 +57,19 @@ export default function WeatherPage(): ReactElement {
       <h2>Today's Weather</h2>
       <hr />
       <Form
+        initialValues={formValue}
         handleSubmit={handleSubmit}
         handleClear={handleClear}
         setWeather={setWeather}
         setHistoryList={setHistoryList}
       />
       <Preview queryResult={weather} />
-      <History historyList={historyList} formValue={formValue} />
+      <History
+        historyList={historyList}
+        handleDelete={handleDelete}
+        handleSearch={handleSearch}
+        formValue={formValue}
+      />
     </div>
   );
 }
