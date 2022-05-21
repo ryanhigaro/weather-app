@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import styles from './main.module.css'
-import Form from './form'
+import Form from './Form'
 
 
 export default function WeatherPage(): ReactElement {
