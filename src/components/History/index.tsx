@@ -35,7 +35,7 @@ export default function History({
       {filteredList &&
         filteredList?.length > 0 &&
         filteredList?.map((data: any, index: number) => (
-          <>
+          <div key={index}>
             <p>
               {index + 1}. {data?.city}, {data?.country} {data?.date}
             </p>
@@ -47,7 +47,7 @@ export default function History({
               Search
             </button>
             <button onClick={() => handleDelete(index)}>delete</button>
-          </>
+          </div>
         ))}
     </div>
   );

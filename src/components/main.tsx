@@ -33,7 +33,7 @@ export default function WeatherPage(): ReactElement {
   }
 
   function saveHistoryList(values: { city: string; country: string }) {
-    if (_.filter(historyList, _.matches(values))) return;
+    // if (_.filter(historyList, { city: values.city.toLowerCase() })) return;
     const currentTime = moment().format("YYYY-MM-DD h:mm:ss a");
     setHistoryList((prevState: any) => [
       ...prevState,
@@ -78,7 +78,7 @@ export default function WeatherPage(): ReactElement {
         setWeather={setWeather}
         setHistoryList={setHistoryList}
       />
-      {isError.length ? <p> {isError || 'Not Found'} </p> : <Preview queryResult={weather} />}
+      {isError.length > 0 ? <p> {isError || 'Not Found'} </p> : <Preview queryResult={weather} />}
       <History
         historyList={historyList}
         handleDelete={handleDelete}

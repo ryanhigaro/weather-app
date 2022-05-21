@@ -11,6 +11,7 @@ export default function Preview({ queryResult }: { queryResult: any }) {
       <p>
         {queryResult?.name},{queryResult?.sys?.country}
       </p>
+      <img src={`http://openweathermap.org/img/wn/${queryResult.weather[0]?.icon}.png`} />
       <h2>{queryResult?.weather[0]?.main}</h2>
       <p>
         Description:{" "}
