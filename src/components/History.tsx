@@ -22,6 +22,7 @@ export default function History({
   const [filteredList, setFilteredList] = useState<any>([]);
 
   useEffect(() => {
+    // Filter out search result with the same city
     formValue.city.length > 0
       ? setFilteredList(
           _.filter(historyList, {

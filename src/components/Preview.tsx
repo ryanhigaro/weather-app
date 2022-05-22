@@ -42,11 +42,11 @@ export default function Preview({ queryResult }: { queryResult: any }) {
           </tr>
           <tr>
             <th>Humidity: </th>
-            <td>{queryResult?.main?.humidity || "-"}%</td>
+            <td>{queryResult?.main?.humidity || "N/A"}%</td>
           </tr>
           <tr>
             <th>Time: </th>
-            <td>{currentTime}</td>
+            <td>{currentTime || "N/A"}</td>
           </tr>
         </tbody>
       </table>
