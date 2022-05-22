@@ -30,19 +30,19 @@ export default function Preview({ queryResult }: { queryResult: any }) {
               {capitalize(
                 queryResult.weather.length > 0 &&
                   queryResult?.weather[0]?.description
-              ) || "-"}
+              ) || "N/A"}
             </td>
           </tr>
           <tr>
             <th>Temperature: </th>
             <td>
-              {queryResult?.main?.temp_min}°C -{" "}
-              {queryResult?.main?.temp_max || "-"}°C
+              {queryResult?.main?.temp_min || "N/A"}°C -{" "}
+              {queryResult?.main?.temp_max || "N/A"}°C
             </td>
           </tr>
           <tr>
             <th>Humidity: </th>
-            <td>{queryResult?.main?.humidity}%</td>
+            <td>{queryResult?.main?.humidity || "-"}%</td>
           </tr>
           <tr>
             <th>Time: </th>
