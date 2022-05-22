@@ -1,26 +1,16 @@
 import React from "react";
 import { Formik } from "formik";
-import { validationSchema } from "../../_constants";
+import { validationSchema } from "../_constants";
 import styles from "./Form.module.css";
-import { FormField } from "../../_types";
-import {
-  Button,
-  Form as BootstrapForm,
-  Col,
-  Row,
-  FloatingLabel,
-} from "react-bootstrap";
+import { FormField } from "../_types";
+import { Button, Form as BootstrapForm, FloatingLabel } from "react-bootstrap";
 
 export default function Form({
   initialValues,
-  setWeather,
-  setHistoryList,
   handleSubmit,
   handleClear,
 }: {
   initialValues: FormField;
-  setWeather: (data: any) => void;
-  setHistoryList: (data: any) => void;
   handleSubmit: (values: FormField) => void;
   handleClear: () => void;
 }) {
@@ -31,13 +21,7 @@ export default function Form({
       onSubmit={(values) => handleSubmit(values)}
       enableReinitialize
     >
-      {({
-        values,
-        errors,
-        handleChange,
-        handleSubmit,
-        resetForm,
-      }) => (
+      {({ values, errors, handleChange, handleSubmit, resetForm }) => (
         <BootstrapForm onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputForm}>
             <BootstrapForm.Group>

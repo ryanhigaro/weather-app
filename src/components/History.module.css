@@ -1,0 +1,28 @@
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.date {
+  display: none;
+}
+
+.btnGroup span,
+.btnGroup button {
+  margin: 8px;
+}
+
+.btnGroup {
+  display: inline;
+}
+
+.noRecordText {
+  text-align: center;
+}
+
+@media (min-width: 480px) {
+  .date {
+    display: inline;
+  }
+}

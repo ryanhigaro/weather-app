@@ -1,14 +1,13 @@
 import React, { ReactElement, useState } from "react";
-import styles from "./main.module.css";
-import Form from "./Form/Form";
+import styles from "./WeatherPage.module.css";
+import Form from "./Form";
 import Preview from "./Preview";
 import History from "./History";
 import moment from "moment";
-import { getOpenWeatherService } from "./api";
+import { getOpenWeatherService } from "../api";
 import { FormField } from "../_types";
 import axios from "axios";
 import { initialValues } from "../_constants";
-import _ from "lodash";
 import { Alert, Spinner } from "react-bootstrap";
 import { capitalize } from "../_utils";
 
@@ -80,8 +79,6 @@ export default function WeatherPage(): ReactElement {
         initialValues={formValue}
         handleSubmit={handleSubmit}
         handleClear={handleClear}
-        setWeather={setWeather}
-        setHistoryList={setHistoryList}
       />
       {isLoading ? (
         <div className={styles.loader}>

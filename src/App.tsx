@@ -1,6 +1,6 @@
-import React from 'react';
-import './App.css'
-import WeatherPage from './components/main';
+import React from "react";
+import "./App.css";
+import WeatherPage from "./components/WeatherPage";
 
 function App() {
   return (
