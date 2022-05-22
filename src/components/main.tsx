@@ -9,7 +9,7 @@ import { FormField } from "../_types";
 import axios from "axios";
 import { initialValues } from "../_constants";
 import _ from "lodash";
-import { Alert } from "react-bootstrap";
+import { Alert, Spinner } from "react-bootstrap";
 import { capitalize } from "../_utils";
 
 export default function WeatherPage(): ReactElement {
@@ -17,11 +17,14 @@ export default function WeatherPage(): ReactElement {
   const [historyList, setHistoryList] = useState<any>([]);
   const [formValue, setFormValue] = useState<FormField>(initialValues);
   const [isError, setIsError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function fetchWeather(values: FormField) {
+    setIsLoading(true);
     axios
       .get(getOpenWeatherService(values.city, values.country))
       .then((response: { data: any }) => {
+        setIsLoading(false);
         saveHistoryList({
           city: response.data.name,
           country: response.data.sys.country,
@@ -29,13 +32,13 @@ export default function WeatherPage(): ReactElement {
         setWeather(response.data);
       })
       .catch((error: any) => {
+        setIsLoading(false);
         setIsError(error.response.data.message);
         console.error(error.response.data.message);
       });
   }
 
   function saveHistoryList(values: { city: string; country: string }) {
-    // if (_.filter(historyList, { city: values.city.toLowerCase() })) return;
     const currentTime = moment().format("h:mm:ss a");
     setHistoryList((prevState: any) => [
       ...prevState,
@@ -80,8 +83,11 @@ export default function WeatherPage(): ReactElement {
         setWeather={setWeather}
         setHistoryList={setHistoryList}
       />
-
-      {isError.length > 0 ? (
+      {isLoading ? (
+        <div className={styles.loader}>
+          <Spinner animation="border" />
+        </div>
+      ) : isError.length > 0 ? (
         <Alert key="danger" variant="danger">
           {capitalize(isError) || "Not Found"}
         </Alert>

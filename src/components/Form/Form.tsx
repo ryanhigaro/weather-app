@@ -34,10 +34,8 @@ export default function Form({
       {({
         values,
         errors,
-        touched,
         handleChange,
         handleSubmit,
-        isSubmitting,
         resetForm,
       }) => (
         <BootstrapForm onSubmit={handleSubmit} className={styles.form}>
@@ -52,11 +50,10 @@ export default function Form({
                   onChange={handleChange}
                   isInvalid={!!errors.city}
                 />
-                   <BootstrapForm.Control.Feedback type="invalid">
-                {errors.city}
-              </BootstrapForm.Control.Feedback>
+                <BootstrapForm.Control.Feedback type="invalid">
+                  {errors.city}
+                </BootstrapForm.Control.Feedback>
               </FloatingLabel>
-           
             </BootstrapForm.Group>
           </div>
           <div className={styles.inputForm}>
@@ -70,20 +67,24 @@ export default function Form({
                   onChange={handleChange}
                   isInvalid={!!errors.country}
                 />
-                             <BootstrapForm.Control.Feedback type="invalid">
-                {errors.country}
-              </BootstrapForm.Control.Feedback>
+                <BootstrapForm.Control.Feedback type="invalid">
+                  {errors.country}
+                </BootstrapForm.Control.Feedback>
               </FloatingLabel>
- 
             </BootstrapForm.Group>
           </div>
           <div className={styles.btnGroup}>
-            <Button variant="primary" type="submit" className={styles.btn} size="lg">
+            <Button
+              variant="primary"
+              type="submit"
+              className={styles.btn}
+              size="lg"
+            >
               Search
             </Button>
             <Button
-            className={styles.btn}
-            size="lg"
+              size="lg"
+              className={styles.btn}
               type="button"
               variant="light"
               onClick={() => {

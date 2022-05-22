@@ -17,6 +17,10 @@
     display: inline;
 }
 
+.noRecordText {
+    text-align: center;
+}
+
 @media (min-width: 480px) {
     .date {
         display: inline;

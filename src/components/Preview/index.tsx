@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./index.module.css";
 import moment from "moment";
 import { Image } from "react-bootstrap";
+import { capitalize } from "../../_utils";
 
 export default function Preview({ queryResult }: { queryResult: any }) {
   const currentTime = moment().format("YYYY-MM-DD h:mm:ss a");
@@ -26,7 +27,7 @@ export default function Preview({ queryResult }: { queryResult: any }) {
           <tr>
             <th>Description: </th>
             <td>
-              {(queryResult.weather.length > 0 &&
+              {capitalize(queryResult.weather.length > 0 &&
                 queryResult?.weather[0]?.description) ||
                 "-"}
             </td>

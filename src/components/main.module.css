@@ -12,6 +12,14 @@
     width: 100%;
 }
 
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    width: 100%;
+}
+
 @media (min-width: 1024px) {
     .cardContainer {
         width: 70%;

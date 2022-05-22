@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Button, ListGroup } from "react-bootstrap";
 import { FormField } from "../../_types";
 import styles from "./index.module.css";
-import { faSearch, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { capitalize } from "../../_utils";
 
 export default function History({
@@ -21,52 +21,50 @@ export default function History({
   const [filteredList, setFilteredList] = useState<any>([]);
 
   useEffect(() => {
-    formValue.city.length > 0 || formValue.country.length > 0
+    formValue.city.length > 0
       ? setFilteredList(
           _.filter(historyList, {
             city: formValue.city.toLowerCase(),
-            country: formValue.country.toLowerCase(),
           })
         )
       : setFilteredList(historyList);
-  }, [formValue.city.length, formValue.country.length, historyList]);
+  }, [formValue.city.length, historyList]);
 
+  function renderList() {
+    return (
+      <ListGroup as="ol">
+      {filteredList && filteredList?.length > 0 && filteredList?.map((data: any, index: number) => (
+        <ListGroup.Item className={styles.listItem} as="li" key={index}>
+          <span>
+            {index + 1}. {capitalize(data?.city)},{" "}
+            {data?.country.toUpperCase()}
+          </span>
+          <span className={styles.btnGroup}>
+            <span className={styles.date}>{data?.date}</span>
+            <Button
+              variant="secondary"
+              onClick={() =>
+                handleSearch({ city: data?.city, country: data?.country })
+              }
+            >
+              <FontAwesomeIcon icon={faSearch} />
+            </Button>
+            <Button variant="danger" onClick={() => handleDelete(index)}>
+              <FontAwesomeIcon icon={faTrash} />
+            </Button>
+          </span>
+        </ListGroup.Item>
+      ))}
+    </ListGroup>
+    )
+  }
 
-  if (historyList.length < 1) return null;
+  // if (!filteredList?.length) return null;
   return (
-    <div>
+    <div >
       <h2>Search History</h2>
       <hr />
-      <ListGroup as="ol">
-        {filteredList &&
-          filteredList?.length > 0 &&
-          filteredList?.map((data: any, index: number) => (
-            <ListGroup.Item
-              className={styles.listItem}
-              as="li"
-              key={index}
-            >
-              <span>
-                {index + 1}. {capitalize(data?.city)},{" "}
-                {data?.country.toUpperCase()}
-              </span>
-              <span className={styles.btnGroup}>
-                <span className={styles.date}>{data?.date}</span>
-                <Button
-                  variant="secondary"
-                  onClick={() =>
-                    handleSearch({ city: data?.city, country: data?.country })
-                  }
-                >
-                  <FontAwesomeIcon icon={faSearch} />
-                </Button>
-                <Button variant="danger" onClick={() => handleDelete(index)}>
-                  <FontAwesomeIcon icon={faTrash} />
-                </Button>
-              </span>
-            </ListGroup.Item>
-          ))}
-      </ListGroup>
+      {!filteredList?.length ? <p className={styles.noRecordText}>No Record(s)</p> : renderList()}
     </div>
   );
 }
