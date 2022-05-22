@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from "react";
 import styles from "./main.module.css";
-import Form from "./Form";
+import Form from "./Form/Form";
 import Preview from "./Preview";
 import History from "./History";
 import moment from "moment";
@@ -9,12 +9,14 @@ import { FormField } from "../_types";
 import axios from "axios";
 import { initialValues } from "../_constants";
 import _ from "lodash";
+import { Alert } from "react-bootstrap";
+import { capitalize } from "../_utils";
 
 export default function WeatherPage(): ReactElement {
   const [weather, setWeather] = useState(null);
   const [historyList, setHistoryList] = useState<any>([]);
   const [formValue, setFormValue] = useState<FormField>(initialValues);
-  const [isError, setIsError] = useState<string>('');
+  const [isError, setIsError] = useState<string>("");
 
   async function fetchWeather(values: FormField) {
     axios
@@ -34,7 +36,7 @@ export default function WeatherPage(): ReactElement {
 
   function saveHistoryList(values: { city: string; country: string }) {
     // if (_.filter(historyList, { city: values.city.toLowerCase() })) return;
-    const currentTime = moment().format("YYYY-MM-DD h:mm:ss a");
+    const currentTime = moment().format("h:mm:ss a");
     setHistoryList((prevState: any) => [
       ...prevState,
       {
@@ -78,7 +80,14 @@ export default function WeatherPage(): ReactElement {
         setWeather={setWeather}
         setHistoryList={setHistoryList}
       />
-      {isError.length > 0 ? <p> {isError || 'Not Found'} </p> : <Preview queryResult={weather} />}
+
+      {isError.length > 0 ? (
+        <Alert key="danger" variant="danger">
+          {capitalize(isError) || "Not Found"}
+        </Alert>
+      ) : (
+        <Preview queryResult={weather} />
+      )}
       <History
         historyList={historyList}
         handleDelete={handleDelete}

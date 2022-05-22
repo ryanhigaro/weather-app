@@ -1,3 +1,7 @@
 .App {
-  margin: 16px;
+  padding: 16px;
+  background-color: #f5f7fd;
+  height: 100%;
+  min-height: 100vh;
 }
+

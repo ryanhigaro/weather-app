@@ -1,7 +1,11 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
+import { Button, ListGroup } from "react-bootstrap";
 import { FormField } from "../../_types";
 import styles from "./index.module.css";
+import { faSearch, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { capitalize } from "../../_utils";
 
 export default function History({
   historyList,
@@ -27,28 +31,42 @@ export default function History({
       : setFilteredList(historyList);
   }, [formValue.city.length, formValue.country.length, historyList]);
 
+
   if (historyList.length < 1) return null;
   return (
     <div>
       <h2>Search History</h2>
       <hr />
-      {filteredList &&
-        filteredList?.length > 0 &&
-        filteredList?.map((data: any, index: number) => (
-          <div key={index}>
-            <p>
-              {index + 1}. {data?.city}, {data?.country} {data?.date}
-            </p>
-            <button
-              onClick={() =>
-                handleSearch({ city: data?.city, country: data?.country })
-              }
+      <ListGroup as="ol">
+        {filteredList &&
+          filteredList?.length > 0 &&
+          filteredList?.map((data: any, index: number) => (
+            <ListGroup.Item
+              className={styles.listItem}
+              as="li"
+              key={index}
             >
-              Search
-            </button>
-            <button onClick={() => handleDelete(index)}>delete</button>
-          </div>
-        ))}
+              <span>
+                {index + 1}. {capitalize(data?.city)},{" "}
+                {data?.country.toUpperCase()}
+              </span>
+              <span className={styles.btnGroup}>
+                <span className={styles.date}>{data?.date}</span>
+                <Button
+                  variant="secondary"
+                  onClick={() =>
+                    handleSearch({ city: data?.city, country: data?.country })
+                  }
+                >
+                  <FontAwesomeIcon icon={faSearch} />
+                </Button>
+                <Button variant="danger" onClick={() => handleDelete(index)}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </Button>
+              </span>
+            </ListGroup.Item>
+          ))}
+      </ListGroup>
     </div>
   );
 }
